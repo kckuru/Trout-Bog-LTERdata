@@ -39,6 +39,10 @@ summer_summary <- summer_tb %>%
 
 print(summer_summary)
 
+#########################
+## Doing some plotting ##
+#########################
+
 library(ggplot2)
 
 # Linear model
@@ -61,17 +65,19 @@ annotation_text <- paste0(
   "R² = ", r_squared
 )
 
-# Elegant plot with annotation
+# Plot
 ggplot(summer_summary, aes(x = year, y = mean_value)) +
   geom_line(color = "#2C7BB6", linewidth = 1) +
   geom_point(color = "#D7191C", size = 3, alpha = 0.8) +
   geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),
                 width = 0.2, color = "gray50", alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, color = "#FDAE61", linetype = "dashed", linewidth = 0.8) +
-  annotate("text", x = min(summer_summary$year) + 2,
-           y = max(summer_summary$mean_value),
-           label = annotation_text,
-           hjust = 0, size = 4, color = "black") +
+  geom_label(
+    aes(x = min(year) + 2, y = max(mean_value)),
+    label = annotation_text,
+    hjust = 0, size = 4,
+    fill = "white", color = "black", alpha = 0.8
+  ) +
   labs(
     title = "Summer (May–August) Color Trends for Trout Bog Lake",
     subtitle = "Mean absorbance normalized to a 1 cm pathlength",
@@ -87,4 +93,3 @@ ggplot(summer_summary, aes(x = year, y = mean_value)) +
     axis.text = element_text(color = "gray20"),
     panel.grid.minor = element_blank()
   )
-
