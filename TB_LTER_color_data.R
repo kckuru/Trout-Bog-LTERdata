@@ -41,18 +41,43 @@ print(summer_summary)
 
 library(ggplot2)
 
+# Linear model
+lm_model <- lm(mean_value ~ year, data = summer_summary)
+model_summary <- summary(lm_model)
+
+# Slope, p-value, and R²
+slope <- round(coef(lm_model)[2], 4)
+p_value <- signif(model_summary$coefficients[2,4], 2) 
+r_squared <- round(model_summary$r.squared, 2) 
+
+# p-value for slope = 2.43×10⁻¹¹
+# Extremely small. The increase in absorbance over years is highly statistically significant.
+
+# R² = 0.8016
+# ~80% of variation in summer absorbance is explained by year alone.
+
+annotation_text <- paste0(
+  "p = ", p_value, "\n",
+  "R² = ", r_squared
+)
+
+# Elegant plot with annotation
 ggplot(summer_summary, aes(x = year, y = mean_value)) +
-  geom_line(color = "#2C7BB6", linewidth = 1) +  
-  geom_point(color = "#D7191C", size = 3, alpha = 0.8) +  
+  geom_line(color = "#2C7BB6", linewidth = 1) +
+  geom_point(color = "#D7191C", size = 3, alpha = 0.8) +
   geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),
                 width = 0.2, color = "gray50", alpha = 0.7) +
-  geom_smooth(method = "lm", se = FALSE, color = "#FDAE61", linetype = "dashed", linewidth = 0.8) +  
+  geom_smooth(method = "lm", se = FALSE, color = "#FDAE61", linetype = "dashed", linewidth = 0.8) +
+  annotate("text", x = min(summer_summary$year) + 2,
+           y = max(summer_summary$mean_value),
+           label = annotation_text,
+           hjust = 0, size = 4, color = "black") +
   labs(
     title = "Summer (May–August) Color Trends for Trout Bog Lake",
     subtitle = "Mean absorbance normalized to a 1 cm pathlength",
     x = "Year",
     y = "Mean Absorbance (1 cm)",
-    caption = "Data: NTL-LTER"
+    caption = "Data: Trout Bog LTER"
   ) +
   theme_minimal(base_size = 14) +
   theme(
@@ -62,3 +87,4 @@ ggplot(summer_summary, aes(x = year, y = mean_value)) +
     axis.text = element_text(color = "gray20"),
     panel.grid.minor = element_blank()
   )
+
