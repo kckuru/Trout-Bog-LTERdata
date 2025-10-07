@@ -66,7 +66,7 @@ annotation_text <- paste0(
 )
 
 # Plot
-ggplot(summer_summary, aes(x = year, y = mean_value)) +
+abs_trends_over_years <- ggplot(summer_summary, aes(x = year, y = mean_value)) +
   geom_line(color = "#2C7BB6", linewidth = 1) +
   geom_point(color = "#D7191C", size = 3, alpha = 0.8) +
   geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),
@@ -83,7 +83,6 @@ ggplot(summer_summary, aes(x = year, y = mean_value)) +
     subtitle = "Mean absorbance normalized to a 1 cm pathlength",
     x = "Year",
     y = "Mean Absorbance (1 cm)",
-    caption = "Data: Trout Bog LTER"
   ) +
   theme_minimal(base_size = 14) +
   theme(
@@ -93,3 +92,6 @@ ggplot(summer_summary, aes(x = year, y = mean_value)) +
     axis.text = element_text(color = "gray20"),
     panel.grid.minor = element_blank()
   )
+
+abs_trends_over_years
+
