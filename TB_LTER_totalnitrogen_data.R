@@ -46,7 +46,6 @@ p_value_n <- signif(model_summary_nitrogen$coefficients[2,4], 2)
 r_squared_n <- round(model_summary_nitrogen$r.squared, 2)
 
 annotation_text_n <- paste0(
-  "Slope = ", slope_n, " mg/L/year\n",
   "p = ", p_value_n, "\n",
   "R² = ", r_squared_n
 )
