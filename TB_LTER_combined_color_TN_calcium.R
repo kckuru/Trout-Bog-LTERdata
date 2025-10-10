@@ -85,7 +85,7 @@ annotation_text_nitrogen <- paste0(
 )
 
 plot_nitrogen <- ggplot(summer_summary_nitrogen, aes(x = year, y = mean_value)) +
-  geom_line(color = "#2C7BB6", linewidth = 1) +
+  geom_line(color = "darkgreen", linewidth = 1) +
   geom_point(color = "green", size = 2, alpha = 0.8) +
   geom_errorbar(aes(ymin = mean_value - se_value, ymax = mean_value + se_value),
                 width = 0.2, color = "gray50", alpha = 0.7) +
@@ -133,7 +133,7 @@ annotation_text_calcium <- paste0(
 )
 
 plot_calcium <- ggplot(summer_summary_calcium, aes(x = year, y = mean_value)) +
-  geom_line(color = "#2C7BB6", linewidth = 1) +
+  geom_line(color = "darkred", linewidth = 1) +
   geom_point(color = "red", size = 2, alpha = 0.8) +
   geom_errorbar(aes(ymin = mean_value - se_value, ymax = mean_value + se_value),
                 width = 0.2, color = "gray50", alpha = 0.7) +
