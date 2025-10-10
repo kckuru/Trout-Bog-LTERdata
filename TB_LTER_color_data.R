@@ -33,9 +33,11 @@ summer_summary <- summer_tb %>%
   summarise(
     mean_value = mean(value_1cm, na.rm = TRUE),
     sd_value = sd(value_1cm, na.rm = TRUE),
+    se_value = sd_value / sqrt(n()),
     n_samples = n()
   ) %>%
   arrange(year)
+
 
 print(summer_summary)
 
@@ -69,9 +71,8 @@ annotation_text <- paste0(
 abs_trends_over_years <- ggplot(summer_summary, aes(x = year, y = mean_value)) +
   geom_line(color = "#2C7BB6", linewidth = 1) +
   geom_point(color = "#D7191C", size = 3, alpha = 0.8) +
-  geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value),
+  geom_errorbar(aes(ymin = mean_value - se_value, ymax = mean_value + se_value),
                 width = 0.2, color = "gray50", alpha = 0.7) +
-  geom_smooth(method = "lm", se = FALSE, color = "#FDAE61", linetype = "dashed", linewidth = 0.8) +
   geom_label(
     aes(x = min(year) + 2, y = max(mean_value)),
     label = annotation_text,
@@ -94,3 +95,5 @@ abs_trends_over_years <- ggplot(summer_summary, aes(x = year, y = mean_value)) +
     axis.text = element_text(color = "gray20", size = 10, angle = 45, hjust = 1),
     panel.grid.minor = element_blank()
   )
+
+abs_trends_over_years
