@@ -56,12 +56,6 @@ slope <- round(coef(lm_model)[2], 4)
 p_value <- signif(model_summary$coefficients[2,4], 2) 
 r_squared <- round(model_summary$r.squared, 2) 
 
-# p-value for slope = 2.43×10⁻¹¹
-# Extremely small. The increase in absorbance over years is highly statistically significant.
-
-# R² = 0.8016
-# ~80% of variation in summer absorbance is explained by year alone.
-
 annotation_text <- paste0(
   "p = ", p_value, "\n",
   "R² = ", r_squared
