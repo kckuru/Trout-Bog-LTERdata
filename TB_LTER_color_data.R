@@ -78,20 +78,19 @@ abs_trends_over_years <- ggplot(summer_summary, aes(x = year, y = mean_value)) +
     hjust = 0, size = 4,
     fill = "white", color = "black", alpha = 0.8
   ) +
+  # 🔽 Add this line
+  scale_x_continuous(breaks = unique(summer_summary$year)) +
   labs(
     title = "Summer (May–August) Color Trends for Trout Bog Lake",
     subtitle = "Mean absorbance normalized to a 1 cm pathlength",
     x = "Year",
-    y = "Mean Absorbance (1 cm)",
+    y = "Mean Absorbance (1 cm)"
   ) +
   theme_minimal(base_size = 14) +
   theme(
     plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
     plot.subtitle = element_text(size = 12, hjust = 0.5),
     axis.title = element_text(face = "bold"),
-    axis.text = element_text(color = "gray20"),
+    axis.text = element_text(color = "gray20", size = 10, angle = 45, hjust = 1),
     panel.grid.minor = element_blank()
   )
-
-abs_trends_over_years
-
