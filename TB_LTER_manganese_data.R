@@ -57,11 +57,11 @@ mn_trends_over_years <- ggplot(summer_summary_manganese, aes(x = year, y = mean_
   geom_smooth(method = "lm", se = TRUE, color = "#FDAE61", fill = "#FDAE61", alpha = 0.2, linetype = "dashed") +
   geom_label(
     aes(x = min(year) + 2, y = max(mean_value, na.rm = TRUE)),
-    label = annotation_text_ca,
+    label = annotation_text_mn,
     hjust = 0, size = 4,
     fill = "white", color = "black", alpha = 0.8
   ) +
-  scale_x_continuous(breaks = unique(summer_summary_calcium$year)) +
+  scale_x_continuous(breaks = unique(summer_summary_manganese$year)) +
   labs(
     title = "Summer (May–August) Manganese Trends for Trout Bog Lake",
     subtitle = "Mean Manganese ± SE",
