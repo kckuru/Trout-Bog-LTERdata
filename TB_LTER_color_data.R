@@ -67,6 +67,7 @@ abs_trends_over_years <- ggplot(summer_summary, aes(x = year, y = mean_value)) +
   geom_point(color = "blue", size = 2, alpha = 0.8) +
   geom_errorbar(aes(ymin = mean_value - se_value, ymax = mean_value + se_value),
                 width = 0.2, color = "gray50", alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "#FDAE61", fill = "#FDAE61", alpha = 0.2, linetype = "dashed") +
   geom_label(
     aes(x = min(year) + 2, y = max(mean_value)),
     label = annotation_text,
