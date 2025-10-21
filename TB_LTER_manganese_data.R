@@ -22,7 +22,7 @@ tb_manganese <- tb_manganese %>%
 
 # Filter for summer months (June-August, months 6-8)
 summer_tb_manganese <- tb_manganese %>%
-  filter(month %in% c(6, 7, 8))
+  filter(month %in% c(5, 6, 7, 8))
 
 # Calculate summer summary statistics by year
 summer_summary_manganese <- summer_tb_manganese %>%
