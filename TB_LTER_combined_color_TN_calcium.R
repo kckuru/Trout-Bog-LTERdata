@@ -1,6 +1,6 @@
-###################################################################
-## Multi-panel Plot: Long-term Trends in Trout Bog Water Quality ##
-###################################################################
+#################################################################
+## Multi-panel Plot: Long-term Trends in Trout Bog Water Quality
+#################################################################
 
 # Libraries
 library(tidyverse)
@@ -15,9 +15,9 @@ color_palette <- c(
   calcium = "#ca0020"     # Red - calcium
 )
 
-#############################################
+################################################################################
 ## SECTION 1: WATER COLOR DATA (Absorbance)
-#############################################
+################################################################################
 
 color_data <- read_csv("~/Documents/Kuru_Projects/NTL-LTER_data/Trout-Bog-LTERdata/ntl87_v13.csv")
 
@@ -186,9 +186,9 @@ plot_calcium <- ggplot(summer_summary_calcium, aes(x = year, y = mean_value)) +
                 width = 0, color = color_palette["calcium"], alpha = 0.4, linewidth = 0.5) +
   annotate("text",
            x = min(summer_summary_calcium$year) + 2,
-           y = max(summer_summary_calcium$mean_value, na.rm = TRUE) * 0.95,
+           y = min(summer_summary_calcium$mean_value, na.rm = TRUE) * 1.15,
            label = annotation_text_calcium,
-           hjust = 0, vjust = 1,
+           hjust = 0, vjust = -1.8,
            size = 3.2,
            color = "gray20",
            fontface = "italic") +
