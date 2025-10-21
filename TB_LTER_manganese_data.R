@@ -20,7 +20,7 @@ tb_manganese <- tb_manganese %>%
     month = month(sampledate)
   )
 
-# Filter for summer months (June-August, months 6-8)
+# Filter for summer months (May-August, months 5-8)
 summer_tb_manganese <- tb_manganese %>%
   filter(month %in% c(5, 6, 7, 8))
 
