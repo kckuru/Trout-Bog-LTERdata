@@ -5,7 +5,7 @@
 library(tidyverse)
 library(lubridate)
 
-# Load manganese data
+# Load sodium data
 sodium_data <- read_csv("~/Documents/Kuru_Projects/NTL-LTER_data/Trout-Bog-LTERdata/ntl2_v13.csv")
 
 # Filter for Trout Bog lake
