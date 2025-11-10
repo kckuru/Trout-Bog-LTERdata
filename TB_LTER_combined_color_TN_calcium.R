@@ -214,5 +214,6 @@ plot_calcium <- ggplot(summer_summary_calcium, aes(x = year, y = mean_value)) +
 combined_plot <- plot_color / plot_nitrogen / plot_calcium +
   plot_layout(ncol = 1)
 
-combined_plot
+combined_plot 
+
 
