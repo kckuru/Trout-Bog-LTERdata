@@ -70,3 +70,46 @@ annual_precip_plot <- ggplot(annual_precip, aes(x = year4, y = total_precip_mm))
   )
 
 annual_precip_plot
+
+
+# ==========================
+# Post-2010 Data
+# ==========================
+
+annual_precip_post2010 <- annual_precip %>% filter(year4 >= 2010)
+
+lm_model_post2010 <- lm(total_precip_mm ~ year4, data = annual_precip_post2010)
+model_summary_post2010 <- summary(lm_model_post2010)
+
+p_post2010 <- signif(model_summary_post2010$coefficients[2,4], 2)
+r2_post2010 <- round(model_summary_post2010$r.squared, 2)
+annotation_post2010 <- paste0("p = ", p_post2010, "\nR² = ", r2_post2010)
+
+plot_precip_post2010 <- ggplot(annual_precip_post2010, aes(x = year4, y = total_precip_mm)) +
+  geom_col(fill = "skyblue", color = "grey30") +
+  geom_line(linewidth = 1.1, color = "steelblue4") +
+  geom_point(size = 2, color = "navy") +
+  geom_smooth(method = "lm", se = TRUE, color = "darkorange",
+              fill = "darkorange", alpha = 0.2, linetype = "dashed") +
+  geom_label(
+    aes(x = min(year4) + 0.5, y = max(total_precip_mm, na.rm = TRUE)),
+    label = annotation_post2010,
+    hjust = 0, vjust = 1,
+    size = 5, fill = "white", color = "black"
+  ) +
+  labs(
+    title = "Total Annual Precipitation - Minocqua Dam",
+    subtitle = "Post-2010 Period",
+    x = "Year",
+    y = "Total Annual Precipitation (mm)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5)
+  )
+
+plot_precip_post2010
+
+

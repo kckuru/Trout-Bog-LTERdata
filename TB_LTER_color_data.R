@@ -146,6 +146,3 @@ abs_trends_post2010 <- ggplot(summer_post2010, aes(x = year, y = mean_value)) +
   )
 
 abs_trends_post2010
-
-
-
