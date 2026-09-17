@@ -178,3 +178,87 @@ summary(lm_N)
 summary(lm_P)
 summary(lm_NP)
 
+
+lm_log_NP <- lm(
+  log10(median_NP) ~ year,
+  data = annual_np
+)
+
+summary(lm_log_NP)
+
+
+nutrient_data %>%
+  filter(
+    lakeid == "TB",
+    depth == 0
+  ) %>%
+  mutate(
+    month = month(sampledate)
+  ) %>%
+  filter(month %in% 5:8) %>%
+  summarise(
+    median_TN = median(totnuf, na.rm = TRUE),
+    median_NO3NO2 = median(no3no2, na.rm = TRUE),
+    median_NO2 = median(no2, na.rm = TRUE),
+    median_NH4 = median(nh4, na.rm = TRUE)
+  )
+
+######################################
+## Looking at dissolved inorganic N ##
+######################################
+
+
+din_data <- nutrient_data %>%
+  filter(
+    lakeid == "TB",
+    depth == 0
+  ) %>%
+  mutate(
+    month = month(sampledate),
+    year = year(sampledate),
+    
+    DIN = no3no2 + nh4,
+    
+    DIN_fraction = DIN / totnuf * 100
+  ) %>%
+  filter(
+    month %in% 5:8,
+    !is.na(DIN),
+    DIN > 0
+  )
+
+annual_din <- din_data %>%
+  group_by(year) %>%
+  summarise(
+    median_DIN = median(DIN, na.rm = TRUE),
+    mean_DIN = mean(DIN, na.rm = TRUE),
+    
+    median_DIN_fraction = median(
+      DIN_fraction,
+      na.rm = TRUE
+    ),
+    
+    n = n(),
+    
+    .groups = "drop"
+  )
+
+print(annual_din, n = Inf)
+
+
+lm_DIN <- lm(median_DIN ~ year, data = annual_din)
+
+summary(lm_DIN)
+
+lm_log_DIN <- lm(log10(median_DIN) ~ year, data = annual_din)
+
+summary(lm_log_DIN)
+
+lm_DIN_fraction <- lm(
+  median_DIN_fraction ~ year,
+  data = annual_din %>% filter(!is.na(median_DIN_fraction))
+)
+
+summary(lm_DIN_fraction)
+
+
